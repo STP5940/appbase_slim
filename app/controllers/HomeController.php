@@ -10,7 +10,7 @@ class HomeController extends Controller {
     {
       // dd($this->connect);
 
-        $id = "4";
+        $id = $args['id'];
         $sth = $this->db->prepare("SELECT * FROM USERS WHERE id=? ");
         $sth->bindParam(1, $id);
         $sth->execute();

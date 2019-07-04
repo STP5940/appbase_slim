@@ -9,7 +9,7 @@ use Slim\Http\Response;
 return function (App $app) {
     $container = $app->getContainer();
 
-    $app->get('/users/[{name}]', \App\Controllers\HomeController::class . ':index');
+    $app->get('/users/[{id}]', \App\Controllers\HomeController::class . ':index');
 
     $app->get('/[{name}]', function (Request $request, Response $response, array $args) use ($container) {
         // Sample log message
