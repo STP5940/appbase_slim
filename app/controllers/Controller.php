@@ -5,18 +5,26 @@ namespace App\controllers;
  * Basic controller
  */
 use eftec\bladeone\BladeOne;
+use Interop\Container\ContainerInterface;
 
 define('views', __DIR__ . '/../../resources/views');
 define('cache', __DIR__ . '/../../resources/cache');
 
-class Controller {
+class Controller{
+
+    public $db;
+
+    public function __construct(ContainerInterface $container)
+    {
+         $this->db = $container['db'];
+    }
 
     /*
     |--------------------------------------------------------------------------
     | repage to view
     |--------------------------------------------------------------------------
     */
-    
+
     protected function view($Bladefile, $ArrayValue = array()){
       $blade = new BladeOne(views,cache,BladeOne::MODE_AUTO);
       echo @$blade->run($Bladefile,$ArrayValue); // /views/hello.blade.php must exist

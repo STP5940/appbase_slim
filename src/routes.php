@@ -4,6 +4,8 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+
+
 return function (App $app) {
     $container = $app->getContainer();
 
@@ -21,6 +23,7 @@ return function (App $app) {
     // api/v1/user
 
     $app->group('/api', function() use($app){
+
       //Version API
       $app->group('/v1', function() use($app){
 
