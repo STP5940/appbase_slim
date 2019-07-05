@@ -11,6 +11,10 @@ return function (App $app) {
 
     $app->get('/users/[{id}]', \App\Controllers\HomeController::class . ':index');
 
+    $app->post('/process', function ($request, $response, $args) {
+        $response->write("Passed CSRF check.");
+    });
+
     $app->get('/[{name}]', function (Request $request, Response $response, array $args) use ($container) {
         // Sample log message
         $container->get('logger')->info("Slim-Skeleton '/' route");

@@ -1,17 +1,17 @@
 {
-    "name": "Appbase_slim",
+    "name": "slim/slim-skeleton",
     "description": "Appbase Slim Framework Application",
     "keywords": [
       "Appbase slim framework",
       "Slim MVC"
-    ]
+    ],
     "homepage": "https://github.com/STP5940/appbase_slim",
     "license": "MIT",
     "authors": [
         {
             "name": "Sitthipong Sengdonprai",
             "email": "sitthipong114@gmail.com",
-            "facebook": "https://www.facebook.com/home.htmI"
+            "homepage": "https://www.facebook.com/home.htmI"
         }
     ],
     "require": {
@@ -23,7 +23,8 @@
         "mpdf/mpdf": "8.0.0",
         "eftec/bladeone": "3.24",
         "illuminate/database": "^5.3",
-        "vlucas/phpdotenv": "3.3.3"
+        "vlucas/phpdotenv": "3.3.3",
+        "slim/csrf": "0.8.3"
     },
     "require-dev": {
         "phpunit/phpunit": ">=5.0"

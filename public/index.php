@@ -20,7 +20,8 @@ session_start();
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
 
-// print_r($app);
+// Slim-Csrf with Slim
+$app->add(new \Slim\Csrf\Guard());
 
 // Set up dependencies
 $dependencies = require __DIR__ . '/../src/dependencies.php';

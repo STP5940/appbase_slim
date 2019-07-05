@@ -31,7 +31,10 @@ class HomeController extends Controller
         $user = $sth->fetchAll();
         $args = $this->json($args);
 
-        $ArrayUse = ['data' => $args, 'db' => $user, 'email'=> $email];
+        $name = $request->getAttribute('csrf_name');
+        $value = $request->getAttribute('csrf_value');
+
+        $ArrayUse = ['data' => $args, 'db' => $user, 'email'=> $email, 'name' => $name, 'value' => $value];
 
         return $this->view("Index.index", [ 'User' => $ArrayUse]);
     }
