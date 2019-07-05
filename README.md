@@ -1,9 +1,6 @@
 # Appbase Slim framework
 
-requirements
-
-	[PHP Server](https://www.apachefriends.org/index.html)
-  [Composer](https://getcomposer.org)
+requirements [PHP Server](https://www.apachefriends.org/index.html) AND [Composer](https://getcomposer.org)
 
 To run the application in development, you can run these commands
 
