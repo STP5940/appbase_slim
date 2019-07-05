@@ -16,7 +16,7 @@ class Controller{
 
     public function __construct(ContainerInterface $container)
     {
-         $this->db = $container['db'];
+         $this->db = $container['mysql'];
     }
 
     /*
@@ -24,7 +24,6 @@ class Controller{
     | repage to view
     |--------------------------------------------------------------------------
     */
-
     protected function view($Bladefile, $ArrayValue = array()){
       $blade = new BladeOne(views,cache,BladeOne::MODE_AUTO);
       echo @$blade->run($Bladefile,$ArrayValue); // /views/hello.blade.php must exist

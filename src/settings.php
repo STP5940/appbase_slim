@@ -18,10 +18,13 @@ return [
 
         // Database connection setting
         'db' => [
-          'host'    => 'localhost',
-          'dbname'  => 'app',
-          'user'    => 'root',
-          'pass'    => 'root'
+           'driver' => 'mysql',
+           'host' => 'localhost',
+           'database' => 'app',
+           'username' => 'root',
+           'password' => 'root',
+           'charset' => 'utf8',
+           'collation' => 'utf8_unicode_ci',
         ],
     ],
 ];

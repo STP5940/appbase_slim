@@ -20,12 +20,24 @@ return function (App $app) {
         return $logger;
     };
 
-    // Connection DB
-    $container['db'] = function ($c) {
+    // Connection mysql DB PDO
+    // connect mysql only one
+    $container['mysql'] = function ($c) {
       $settings = $c->get('settings')['db'];
-      $pdo = new PDO("mysql:host=".$settings["host"].";dbname=".$settings['dbname'],$settings['user'],$settings['pass']);
+      $pdo = new PDO("mysql:host=".$settings["host"].";dbname=".$settings['database'],$settings['username'],$settings['password']);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
       return $pdo;
     };
+
+    // Using Eloquent ORM
+    $capsule = new \Illuminate\Database\Capsule\Manager;
+    $capsule->addConnection($container['settings']['db']);
+    $capsule->setAsGlobal();
+    $capsule->bootEloquent();
+    //pass the connection to global container (created in previous article)
+    $container['db'] = function ($container) use ($capsule){
+       return $capsule;
+    };
+
 };

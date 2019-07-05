@@ -2,11 +2,10 @@
 <html>
 <head></head>
 <body>
+{{ json_decode($User['email']) }}
 <h1>Hello View</h1>
-{{ $data }}
+{{ $User['data'] }}
 <br/>
-
-{{ dd($db) }}
-
+{{ dd($User['db']) }}
 </body>
 </html>
