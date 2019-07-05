@@ -15,6 +15,11 @@
     define('DB_USERNAME', getenv('DB_USERNAME', 'forge'));
     define('DB_PASSWORD', getenv('DB_PASSWORD'));
 
+    define('CONFIG_IMEZONE', getenv('CONFIG_IMEZONE', 'Asia/Bangkok'));
+    date_default_timezone_set(CONFIG_IMEZONE);
+
+    echo date_default_timezone_get().' : '.date("Y-m-d H:i:s");
+
 return [
     'settings' => [
         'displayErrorDetails' => true, // set to false in production
