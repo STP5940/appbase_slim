@@ -10,7 +10,8 @@ use Interop\Container\ContainerInterface;
 define('views', __DIR__ . '/../../resources/views');
 define('cache', __DIR__ . '/../../resources/cache');
 
-class Controller{
+class Controller
+{
 
     public $db;
 

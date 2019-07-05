@@ -1,14 +1,17 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "name": "Appbase_slim",
+    "description": "Appbase Slim Framework Application",
+    "keywords": [
+      "Appbase slim framework",
+      "Slim MVC"
+    ]
+    "homepage": "https://github.com/STP5940/appbase_slim",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Sitthipong Sengdonprai",
+            "email": "sitthipong114@gmail.com",
+            "facebook": "https://www.facebook.com/home.htmI"
         }
     ],
     "require": {
@@ -36,7 +39,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
+        "start": "php start --port 8888",
         "test": "phpunit"
     }
 }

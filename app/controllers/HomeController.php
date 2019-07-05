@@ -5,7 +5,8 @@ use App\Models\Users;
 use App\controllers\Controller;
 use Illuminate\Database\Capsule\Manager as DB;
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
     /**
      * Homepage
      */
