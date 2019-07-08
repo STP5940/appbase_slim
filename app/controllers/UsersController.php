@@ -65,9 +65,9 @@ class UsersController extends Controller
       $keyPair = $this->csrf->generateToken();
 
       // Validate retrieved tokens
-      $this->csrf->validateToken($_POST[$csrfNameKey], $_POST[$csrfValueKey]);
+      $this->csrf->validateToken($csrfNameKey, $csrfValueKey);
       echo "<br>Appbase Slim csrf token Ok";
-      die();
+      dd($request->getParsedBody()['name']);
 
     }
 
