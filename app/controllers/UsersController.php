@@ -28,10 +28,7 @@ class UsersController extends Controller
         echo $password;
         echo "<br><br>";
 
-        $sth  = $this->mysql->prepare("SELECT * FROM USERS WHERE id=? ");
-        $sth->bindParam(1, $id);
-        $sth->execute();
-        $user = $sth->fetchAll();
+        $user  = DB::SELECT("SELECT * FROM USERS WHERE id=?", [$id]);
         $args = $this->json($args);
 
         $ArrayUse = ['data' => $args, 'db' => $user, 'email'=> $email];

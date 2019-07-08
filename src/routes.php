@@ -3,7 +3,7 @@
 use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
-
+use Illuminate\Database\Capsule\Manager as DB;
 
 
 return function (App $app) {
@@ -33,10 +33,7 @@ return function (App $app) {
         $app->get('/user/[{id}]', function(Request $request, Response $response, array $args){
           // dd($request);
           $id = $args['id'];
-          $sth = $this->mysql->prepare("SELECT * FROM USERS WHERE id=? ");
-          $sth->bindParam(1, $id);
-          $sth->execute();
-          $user = $sth->fetchAll();
+          $user  = DB::SELECT("SELECT * FROM USERS WHERE id=?", [$id]);
 
           // dd(count($user));
           if (count($user)) {
