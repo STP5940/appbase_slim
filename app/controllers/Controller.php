@@ -14,10 +14,20 @@ class Controller
 {
 
     public $db;
+    public $csrf;
+    public $container;
 
     public function __construct(ContainerInterface $container)
     {
          $this->db = $container['mysql'];
+         $this->csrf = $container['csrf'];
+         $this->csrf->validateStorage();
+         $this->container = $container;
+    }
+
+    public function render($response, $PageName, $ArrayValue)
+    {
+      return $this->container->get('renderer')->render($response, $PageName, $ArrayValue);
     }
 
     /*

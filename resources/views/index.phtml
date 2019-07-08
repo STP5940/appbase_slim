@@ -34,5 +34,13 @@
         <?php else: ?>
             <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
         <?php endif; ?>
+
+        <form method="POST" action="validate">
+             <input type="hidden" name="<?php echo $csrf['keys']['name']; ?>" value="<?php echo $csrf['name']; ?>">
+             <input type="hidden" name="<?php echo $csrf['keys']['value']; ?>" value="<?php echo $csrf['value']; ?>">
+             <input type="text" name="name" placeholder="Name">
+             <input type="submit" value="Go">
+        </form>
+
     </body>
 </html>

@@ -9,19 +9,16 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-// dd debug
+session_start();
+
+// dd for larapack debug
 require __DIR__ . '/../vendor/larapack/dd/src/helper.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 
-session_start();
-
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
-
-// Slim-Csrf with Slim
-$app->add(new \Slim\Csrf\Guard());
 
 // Set up dependencies
 $dependencies = require __DIR__ . '/../src/dependencies.php';

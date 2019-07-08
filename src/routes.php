@@ -9,19 +9,17 @@ use Slim\Http\Response;
 return function (App $app) {
     $container = $app->getContainer();
 
-    $app->get('/users/[{id}]', \App\Controllers\HomeController::class . ':index');
+    // Group UsersController
+    $app->group('/users', function() use($app, $container){
 
-    $app->post('/process', function ($request, $response, $args) {
-        $response->write("Passed CSRF check.");
+        $app->get('/[{id}]', \App\Controllers\UsersController::class . ':Index');
+
+        $app->get('/csrf/crate', \App\Controllers\UsersController::class . ':csrf_crate');
+
+        $app->post('/csrf/validate', \App\Controllers\UsersController::class . ':csrf_validate');
+
     });
 
-    $app->get('/[{name}]', function (Request $request, Response $response, array $args) use ($container) {
-        // Sample log message
-        $container->get('logger')->info("Slim-Skeleton '/' route");
-
-        // Render index view
-        return $container->get('renderer')->render($response, 'index.phtml', $args);
-    });
 
     //API Group
     // api/v1/user
