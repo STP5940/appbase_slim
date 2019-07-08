@@ -28,7 +28,7 @@ class UsersController extends Controller
         echo $password;
         echo "<br><br>";
 
-        $sth  = $this->db->prepare("SELECT * FROM USERS WHERE id=? ");
+        $sth  = $this->mysql->prepare("SELECT * FROM USERS WHERE id=? ");
         $sth->bindParam(1, $id);
         $sth->execute();
         $user = $sth->fetchAll();

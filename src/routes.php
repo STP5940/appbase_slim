@@ -33,7 +33,7 @@ return function (App $app) {
         $app->get('/user/[{id}]', function(Request $request, Response $response, array $args){
           // dd($request);
           $id = $args['id'];
-          $sth = $this->db->prepare("SELECT * FROM USERS WHERE id=? ");
+          $sth = $this->mysql->prepare("SELECT * FROM USERS WHERE id=? ");
           $sth->bindParam(1, $id);
           $sth->execute();
           $user = $sth->fetchAll();

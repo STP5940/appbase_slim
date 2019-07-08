@@ -13,13 +13,13 @@ define('cache', __DIR__ . '/../../resources/cache');
 class Controller
 {
 
-    public $db;
+    public $mysql;
     public $csrf;
     public $container;
 
     public function __construct(ContainerInterface $container)
     {
-         $this->db = $container['mysql'];
+         $this->mysql = $container['mysql'];
          $this->csrf = $container['csrf'];
          $this->csrf->validateStorage();
          $this->container = $container;
