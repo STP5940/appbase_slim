@@ -50,4 +50,12 @@ return function (App $app) {
         };
     };
 
+    $container['errorHandler'] = function ($c) {
+        return function ($request, $response, $exception) use ($c) {
+            return $response->withStatus(500)
+                ->withHeader('Content-Type', 'text/html')
+                ->write('<h2>SERVER ERROR 500 !</h2>');
+        };
+    };
+
 };

@@ -18,7 +18,7 @@
     define('CONFIG_IMEZONE', getenv('CONFIG_IMEZONE', 'Asia/Bangkok'));
     date_default_timezone_set(CONFIG_IMEZONE);
 
-    echo date_default_timezone_get().' : '.date("Y-m-d H:i:s");
+    // echo date_default_timezone_get().' : '.date("Y-m-d H:i:s");
 
 return [
     'settings' => [

@@ -16,6 +16,9 @@ require __DIR__ . '/../vendor/larapack/dd/src/helper.php';
 
 require __DIR__ . '/../vendor/autoload.php';
 
+// global function
+require __DIR__ . '/../src/globalfunc.php';
+
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
