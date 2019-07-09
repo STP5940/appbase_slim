@@ -68,36 +68,36 @@
 	<div class="error-pagewrap">
 		<div class="error-page-int">
 			<div class="text-center m-b-md custom-login">
-				<h3>PLEASE LOGIN TO APP</h3>
-				<p>This is the best app ever!</p>
+				<h3>USER LOGIN APP</h3>
+				<p>ลงชื่อเข้าใช้งานระบบ!</p>
 			</div>
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body">
                         <form action="#" id="loginForm">
                             <div class="form-group">
-                                <label class="control-label" for="username">Username</label>
+                                <label class="control-label" for="username">ชื่อผู้ใช้งาน</label>
                                 <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
-                                <span class="help-block small">Your unique username to app</span>
+                                <span class="help-block small">ชื่อผู้ใช้งานของคุณ</span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label" for="password">Password</label>
+                                <label class="control-label" for="password">รหัสผ่าน</label>
                                 <input type="password" title="Please enter your password" placeholder="******" required="" value="" name="password" id="password" class="form-control">
-                                <span class="help-block small">Yur strong password</span>
+                                <span class="help-block small">รหัสผ่านของคุณ</span>
                             </div>
                             <div class="checkbox login-checkbox">
                                 <label>
-										<input type="checkbox" class="i-checks"> Remember me </label>
-                                <p class="help-block small">(if this is a private computer)</p>
+										<input type="checkbox" class="i-checks"> จดจำฉัน </label>
+                                <p class="help-block small">(คำเตือน ใชสำหรับคอมพิวเตอร์ส่วนตัวของคุณ)</p>
                             </div>
-                            <button class="btn btn-success btn-block loginbtn">Login</button>
-                            <a class="btn btn-default btn-block" href="#">Register</a>
+                            <button class="btn btn-success btn-block loginbtn">เข้าสู่ระบบ</button>
+                            <a class="btn btn-default btn-block" href="#">สมัครสมาชิก</a>
                         </form>
                     </div>
                 </div>
 			</div>
 			<div class="text-center login-footer">
-				<p>Copyright © 2018. All rights reserved. Template by <a href="https://colorlib.com/wp/templates/">Colorlib</a></p>
+				<p>Copyright © 2018. All rights reserved. by <a href="https://github.com/STP5940/appbase_slim">Appbase slim</a></p>
 			</div>
 		</div>
     </div>
