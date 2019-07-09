@@ -41,12 +41,26 @@ return function (App $app) {
         return $guard;
     };
 
+    // Register globally to app
+    $container['session'] = function ($c) {
+      return new \SlimSession\Helper;
+    };
+
     // Page not found
     $container['notFoundHandler'] = function ($c) {
         return function ($request, $response) use ($c) {
             $response = new \Slim\Http\Response(404);
             return $response->withRedirect('/404', 301);
             // return $response->write("Page not found");
+        };
+    };
+
+    $container['notAllowedHandler'] = function ($c) {
+        return function ($request, $response, $methods) use ($c) {
+            return $response->withStatus(405)
+                ->withHeader('Allow', implode(', ', $methods))
+                ->withHeader('Content-type', 'text/html')
+                ->write('Method must be one of: ' . implode(', ', $methods));
         };
     };
 

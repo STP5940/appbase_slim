@@ -13,7 +13,7 @@ class IndexController extends Controller
 
     public function Index($request, $response, $args)
     {
-      return $this->view('index');
+      return view('index');
     }
 
 }

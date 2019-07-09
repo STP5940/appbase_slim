@@ -4,19 +4,18 @@ namespace App\controllers;
 /**
  * Basic controller
  */
-use eftec\bladeone\BladeOne;
-use Interop\Container\ContainerInterface;
 
-define('views', __DIR__ . '/../../resources/views');
-define('cache', __DIR__ . '/../../resources/cache');
+use Interop\Container\ContainerInterface;
 
 class Controller
 {
 
     public $csrf;
     public $container;
-    public $csrfNameKey;
-    public $csrfValueKey;
+    public $csrf_nameKey;
+    public $csrf_valueKey;
+    public $csrf_name;
+    public $csrf_value;
 
     public function __construct(ContainerInterface $container)
     {
@@ -24,23 +23,18 @@ class Controller
          $this->csrf->validateStorage();
          $this->container = $container;
 
-         $this->csrfNameKey  = $this->csrf->getTokenNameKey();
-         $this->csrfValueKey = $this->csrf->getTokenValueKey();
+         $this->csrf_nameKey  = $this->csrf->getTokenNameKey();
+         $this->csrf_valueKey = $this->csrf->getTokenValueKey();
+         $this->csrf_name = $this->csrf->getTokenName();
+         $this->csrf_value = $this->csrf->getTokenvalue();
+
+         define('csrf', "<input type='hidden' name='$this->csrf_nameKey' value='$this->csrf_name'>
+         <input type='hidden' name='$this->csrf_valueKey' value='$this->csrf_value'>");
     }
 
     public function render($response, $PageName, $ArrayValue = [])
     {
       return $this->container->get('renderer')->render($response, $PageName, $ArrayValue);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | repage to view
-    |--------------------------------------------------------------------------
-    */
-    protected function view($Bladefile, $ArrayValue = array()){
-      $blade = new BladeOne(views,cache,BladeOne::MODE_AUTO);
-      echo @$blade->run($Bladefile,$ArrayValue); // /views/hello.blade.php must exist
     }
 
     protected function json($json=array(), $return=true, $exit=1) {

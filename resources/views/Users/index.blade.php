@@ -74,8 +74,9 @@
 			<div class="content-error">
 				<div class="hpanel">
                     <div class="panel-body">
-                        <form action="#" id="loginForm">
+                        <form action="checklogin" id="loginForm" method="post">
                             <div class="form-group">
+                                {!! csrf !!}
                                 <label class="control-label" for="username">ชื่อผู้ใช้งาน</label>
                                 <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" name="username" id="username" class="form-control">
                                 <span class="help-block small">ชื่อผู้ใช้งานของคุณ</span>

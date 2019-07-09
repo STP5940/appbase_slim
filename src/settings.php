@@ -37,6 +37,11 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
 
+        // jwt settings
+        'jwt' => [
+            'secret' => 'supersecretkeyyoushouldnotcommittogithub',
+        ],
+
         // Database connection setting
         'db' => [
            'driver'    => DB_DRIVER,
