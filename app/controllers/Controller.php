@@ -23,7 +23,7 @@ class Controller
          $this->container = $container;
     }
 
-    public function render($response, $PageName, $ArrayValue)
+    public function render($response, $PageName, $ArrayValue = [])
     {
       return $this->container->get('renderer')->render($response, $PageName, $ArrayValue);
     }

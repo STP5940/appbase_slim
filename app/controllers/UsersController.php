@@ -13,6 +13,11 @@ class UsersController extends Controller
 
     public function Index($request, $response, $args)
     {
+      return $this->render($response, 'index.phtml', $args);
+    }
+
+    public function get_users($request, $response, $args)
+    {
         $id   = $args['id'];
 
         $use   =  Users::find($id);
@@ -44,7 +49,7 @@ class UsersController extends Controller
       $csrfName     = $request->getAttribute($csrfNameKey);
       $csrfValue    = $request->getAttribute($csrfValueKey);
 
-      return $this->render($response, 'index.phtml', [
+      return $this->render($response, 'users/index.phtml', [
                   'csrf'   => [
                       'keys' => [
                           'name'  => $csrfNameKey,

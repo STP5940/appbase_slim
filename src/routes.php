@@ -8,11 +8,15 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 return function (App $app) {
     $container = $app->getContainer();
+    $aaa = $app;
+
+    // index page
+    $app->get('/[{name}]', \App\Controllers\UsersController::class . ':Index')->setName('Indexpage');
 
     // Group UsersController
     $app->group('/users', function() use($app, $container){
 
-        $app->get('/[{id}]', \App\Controllers\UsersController::class . ':Index');
+        $app->get('/[{id}]', \App\Controllers\UsersController::class . ':get_users');
 
         $app->get('/csrf/crate', \App\Controllers\UsersController::class . ':csrf_crate');
 
