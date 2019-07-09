@@ -8,7 +8,6 @@ use Illuminate\Database\Capsule\Manager as DB;
 
 return function (App $app) {
     $container = $app->getContainer();
-    $aaa = $app;
 
     // index page
     $app->get('/[{name}]', \App\Controllers\UsersController::class . ':Index')->setName('Indexpage');

@@ -19,7 +19,6 @@ class UsersController extends Controller
     public function get_users($request, $response, $args)
     {
         $id   = $args['id'];
-
         $use   =  Users::find($id);
         $email =  $this->json($use['email']);
 
@@ -44,21 +43,22 @@ class UsersController extends Controller
     public function csrf_crate($request, $response, $args)
     {
       // CSRF token name and value
-      $csrfNameKey  = $this->csrf->getTokenNameKey();
-      $csrfValueKey = $this->csrf->getTokenValueKey();
-      $csrfName     = $request->getAttribute($csrfNameKey);
-      $csrfValue    = $request->getAttribute($csrfValueKey);
+      $csrfName     = $request->getAttribute($this->csrfNameKey);
+      $csrfValue    = $request->getAttribute($this->csrfValueKey);
 
-      return $this->render($response, 'users/index.phtml', [
+      $data = [
                   'csrf'   => [
                       'keys' => [
-                          'name'  => $csrfNameKey,
-                          'value' => $csrfValueKey
+                          'name'  => $this->csrfNameKey,
+                          'value' => $this->csrfValueKey
                       ],
                       'name'  => $csrfName,
                       'value' => $csrfValue
-                  ]
-              ]);
+                  ],
+                  'Hello' => 'Hello Word'
+              ];
+
+      return $this->render($response, 'users/index.phtml', $data);
 
     }
 

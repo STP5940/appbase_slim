@@ -41,4 +41,13 @@ return function (App $app) {
         return $guard;
     };
 
+    // Page not found
+    $container['notFoundHandler'] = function ($c) {
+        return function ($request, $response) use ($c) {
+            $response = new \Slim\Http\Response(404);
+            return $response->withRedirect('/404', 301);
+            // return $response->write("Page not found");
+        };
+    };
+
 };

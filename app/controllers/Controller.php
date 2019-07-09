@@ -15,12 +15,17 @@ class Controller
 
     public $csrf;
     public $container;
+    public $csrfNameKey;
+    public $csrfValueKey;
 
     public function __construct(ContainerInterface $container)
     {
          $this->csrf = $container['csrf'];
          $this->csrf->validateStorage();
          $this->container = $container;
+
+         $this->csrfNameKey  = $this->csrf->getTokenNameKey();
+         $this->csrfValueKey = $this->csrf->getTokenValueKey();
     }
 
     public function render($response, $PageName, $ArrayValue = [])
@@ -47,5 +52,6 @@ class Controller
             return json_encode($json);
         }
     }
+
 
 }
