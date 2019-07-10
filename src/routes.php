@@ -13,42 +13,45 @@ return function (App $app) {
     $app->get('/', \App\Controllers\IndexController::class . ':Index');
     $app->get('/index', \App\Controllers\IndexController::class . ':Index');
 
+    $app->get('/profile',function(Request $request, Response $response, array $args) use($container) {
+      if($container->Auth->validateAuth()) {
+            echo "Hello User login true";
+      }
 
+      return $response->withRedirect(getroute['login']);
+    })->setName('profile');
 
     $app->group('/api', function(\Slim\App $app) use($container) {
 
         $app->get('/user',function(Request $request, Response $response, array $args) use($container) {
-
             // Authorization
-            $session = $container['session'];
-            $Token = isset($session['Token']);
-            if($Token){
-                header("Content-Type: application/json; charset=utf-8");
-                echo json_encode($session['Token']);
-                exit(); //enhance Slim performance
+            if($container->Auth->validateAuth()) {
+                  $session = $container['session'];
+                  $Token = isset($session['Token']);
+                  if($Token){
+                      header("Content-Type: application/json; charset=utf-8");
+                      echo "Login Ok";
+                      exit(); //enhance Slim performance
+                  }
+
             }
 
             return $response->withRedirect(getroute['login']);
-            exit(); //enhance Slim performance
-
         });
 
         $app->get('/logout',function(Request $request, Response $response, array $args) use($container) {
-            // Authorization
+            // Kill Sesstion
             $session = $container['session'];
             $session::destroy();
             return $response->withRedirect(getroute['login']);
-            exit(); //enhance Slim performance
-        });
+        })->setName('logout');
 
     });
 
     // Group UsersController
     $app->group('/users', function() use($app, $container){
-
         $app->get('/login', \App\Controllers\UsersController::class . ':index')->setName('login');
-        $app->post('/checklogin', \App\Controllers\UsersController::class . ':checklogin');
-
+        $app->post('/checklogin', \App\Controllers\UsersController::class . ':checklogin')->setName('checklogin');
     });
 
 

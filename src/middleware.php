@@ -9,9 +9,16 @@ return function (App $app) {
     $app->add($app->getContainer()->get('csrf'));
 
     $app->add(new \Slim\Middleware\Session([
-      'name' => 'dummy_session',
-      'autorefresh' => true,
-      'lifetime' => '1',
-    ]));
+                'name' => 'dummy_session',
+                'autorefresh' => true,
+                'lifetime' => '1',
+              ]));
+
+    // Authorization
+    // $session = $container['session'];
+    // $app->add(new \App\controllers\Auth([
+    //               'Token'        => $session['Token'],
+    //               'username'     => 'root'
+    //           ]));
 
 };

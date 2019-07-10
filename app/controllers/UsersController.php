@@ -16,11 +16,6 @@ class UsersController extends Controller
     {
       $session = $this->container['session'];
       $Token = isset($session['Token']);
-      if($Token){
-        return $response->withRedirect('/api/user');
-        exit();
-      }
-
       return view('Users.index');
       exit();
     }
@@ -28,19 +23,24 @@ class UsersController extends Controller
     public function checklogin($request, $response, $args){
       $username = get($request, 'username');
       $password = get($request, 'password');
-      $hash  = DB::SELECT("SELECT password FROM USERS WHERE username=? ", [$username])[0];
+      $datause  = DB::SELECT("SELECT * FROM USERS WHERE username=? ", [$username]);
 
-      if (validatehash($password, $hash->password)) {
+      if (count($datause) == 1 && validatehash($password, $datause[0]->password)) {
           $settings = $this->container['settings']; // get settings array.
           $token = JWT::encode(['username' => $username, 'password' => $password], $settings['jwt']['secret'], "HS256");
 
           $session = $this->container['session'];
-          $session['Token'] = $token;
+          $session['Token']    = $token;
+          $session['id']       = $datause[0]->id;
+          $session['name']     = $datause[0]->name;
+          $session['username'] = $datause[0]->username;
+          $session['email']    = $datause[0]->email;
+          $session['level']    = $datause[0]->level;
           return $response->withRedirect('/api/user');
           exit();
       }
 
-      return $response->withJson(['error' => true, 'message' => 'These password do not match our records.']);
+      return $response->withJson(['error' => true, 'message' => 'These user or password do not match our records.']);
       exit();
     }
 

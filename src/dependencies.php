@@ -1,6 +1,7 @@
 <?php
 
 use Slim\App;
+use Monolog\Logger;
 
 return function (App $app) {
     $container = $app->getContainer();
@@ -55,6 +56,7 @@ return function (App $app) {
         };
     };
 
+    // Error 405
     $container['notAllowedHandler'] = function ($c) {
         return function ($request, $response, $methods) use ($c) {
             return $response->withStatus(405)
@@ -64,12 +66,48 @@ return function (App $app) {
         };
     };
 
+    // Error 500
     $container['errorHandler'] = function ($c) {
         return function ($request, $response, $exception) use ($c) {
+
+            $settings = $c->get('settings')['logger'];
+            $log = new \Monolog\Logger($settings['name']);
+            $log->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+            // add records to the log
+            $log->error($exception->getMessage(), ['exception' => $exception]);
+
             return $response->withStatus(500)
                 ->withHeader('Content-Type', 'text/html')
                 ->write('<h2>SERVER ERROR 500 !</h2>');
         };
     };
 
+    $container['phpErrorHandler'] = function ($c) {
+        return function ($request, $response, $error) use ($c) {
+
+            $settings = $c->get('settings')['logger'];
+            $log = new \Monolog\Logger($settings['name']);
+            $log->pushHandler(new \Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+            // add records to the log
+            $log->error($error->getMessage(), ['exception' => $error]);
+
+            // retrieve logger from $container here and log the error
+            $response->getBody()->rewind();
+            return $response->withStatus(500)
+                            ->withHeader('Content-Type', 'text/html')
+                            ->write("<h2>Oops, something's gone wrong!</h2>");
+        };
+    };
+
+    // Authorization
+    $container['Auth'] = function ($c) {
+      $session = $c['session'];
+      $Auth = new \App\controllers\Auth([
+                    'Token'        => $session['Token'],
+                    'username'     => 'root'
+                ]);
+      return $Auth;
+    };
+
+    $app->add($container['Auth']);
 };

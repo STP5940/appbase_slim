@@ -14,7 +14,7 @@ $port = (isset($options['port']) ? $options['port'] : '80'); // Set port server
 $Command =  'cd public && php -l -d error_reporting=-1 -S 0.0.0.0:'.$port.'/public'; // Command Line run php start server Run for Adresse IP Local
 
 echo "Server development started: <http://127.0.0.1:$port>\n";
-
+restart:
 echo exec($Command);
-
+goto restart;
 exit("Good By");

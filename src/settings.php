@@ -32,14 +32,14 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'Appbase_slim',
+            'name' => 'appbase_slim',
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
 
         // jwt settings
         'jwt' => [
-            'secret' => 'supersecretkeyyoushouldnotcommittogithub',
+            'secret' => 'A++$#%fsad$6546V&^%&^dfg*&(*gffdg646)*(*&^Ddfgfd%$^#^4654%fdgDfdHfdgg$&%^^&&*sdfSKsd*())',
         ],
 
         // Database connection setting
