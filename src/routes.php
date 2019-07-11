@@ -16,6 +16,7 @@ return function (App $app) {
     $app->get('/profile',function(Request $request, Response $response, array $args) use($container) {
       if($container->Auth->validateAuth()) {
             echo "Hello User login true";
+	          exit(); //enhance Slim performance
       }
 
       return $response->withRedirect(getroute['login']);
