@@ -18,20 +18,25 @@ return function (App $app) {
             echo "Hello User login true";
 	          exit(); //enhance Slim performance
       }
-
       return $response->withRedirect(getroute['login']);
     })->setName('profile');
 
+    $app->get('/users',function(Request $request, Response $response, array $args) use($container) {
+      return $response->withRedirect(getroute['login']);
+    });
+
     $app->group('/api', function(\Slim\App $app) use($container) {
 
-        $app->get('/user',function(Request $request, Response $response, array $args) use($container) {
+        $app->get('/users',function(Request $request, Response $response, array $args) use($container) {
             // Authorization
             if($container->Auth->validateAuth()) {
                   $session = $container['session'];
                   $Token = isset($session['Token']);
                   if($Token){
+                      echo "UserName: ".$session['username'];
+                      // dd($session->getIterator());
                       header("Content-Type: application/json; charset=utf-8");
-                      echo "Login Ok";
+                      echo " Login Ok";
                       exit(); //enhance Slim performance
                   }
 
@@ -43,6 +48,7 @@ return function (App $app) {
         $app->get('/logout',function(Request $request, Response $response, array $args) use($container) {
             // Kill Sesstion
             $session = $container['session'];
+            unset($session['csrf']);
             $session::destroy();
             return $response->withRedirect(getroute['login']);
         })->setName('logout');

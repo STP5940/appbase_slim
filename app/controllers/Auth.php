@@ -36,10 +36,10 @@ class Auth
      {
 
            if( $this->statustoken && $request->getUri()->getPath() ==  getroute['login']){
-                return $response->withRedirect('/api/user');
+                return $response->withRedirect('/api/users');
            }
            if( $this->statustoken && $request->getUri()->getPath() == getroute['checklogin']){
-                return $response->withRedirect('/api/user');
+                return $response->withRedirect('/api/users');
            }
 
            // No Sesstion

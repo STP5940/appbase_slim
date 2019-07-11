@@ -28,7 +28,7 @@ class UsersController extends Controller
       if (count($datause) == 1 && validatehash($password, $datause[0]->password)) {
           $settings = $this->container['settings']; // get settings array.
           $token = JWT::encode(['username' => $username, 'password' => $password], $settings['jwt']['secret'], "HS256");
-
+          // dd($this->container['session']);
           $session = $this->container['session'];
           $session['Token']    = $token;
           $session['id']       = $datause[0]->id;
@@ -36,7 +36,7 @@ class UsersController extends Controller
           $session['username'] = $datause[0]->username;
           $session['email']    = $datause[0]->email;
           $session['level']    = $datause[0]->level;
-          return $response->withRedirect('/api/user');
+          return $response->withRedirect('/api/users');
           exit();
       }
 

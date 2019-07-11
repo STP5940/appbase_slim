@@ -9,6 +9,7 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+ini_set('session.save_path', __DIR__ . '/../resources/session');
 session_start();
 
 // dd for larapack debug

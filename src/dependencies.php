@@ -44,7 +44,14 @@ return function (App $app) {
 
     // Register globally to app
     $container['session'] = function ($c) {
-      return new \SlimSession\Helper;
+      $SessionHelper = new \SlimSession\Helper;
+      $Session = new \Slim\Middleware\Session([
+                  'name' => 'appbaseslim_session',
+                  'autorefresh' => true,
+                  'lifetime' => '24 minutes',
+                  'autorefresh'  => true,
+                ]);
+      return $SessionHelper;
     };
 
     // Page not found
