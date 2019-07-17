@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class Auth
 {
      /**
-      * Auth
+      * Auth Users
       */
 
      /**
@@ -36,39 +36,22 @@ class Auth
      {
 
            if( $this->statustoken && $request->getUri()->getPath() ==  getroute['login']){
-                return $response->withRedirect('/api/users');
+                return $response->withRedirect('/users/index');
            }
            if( $this->statustoken && $request->getUri()->getPath() == getroute['checklogin']){
-                return $response->withRedirect('/api/users');
+                return $response->withRedirect('/users/index');
            }
-
-           // No Sesstion
-           // if( !$this->statustoken && $request->getUri()->getPath() ==  getroute['logout']){
-           //      return $response->withRedirect(getroute['login']);
-           // }
 
            return $next($request, $response);
      }
 
      public function validateAuth()
      {
-            // dd($response);
-            if($this->statustoken){
-              // dd($response->withRedirect(getroute['login']));
 
-                // return $this->Redirect(getroute['login'], false);
-                // return $response->withRedirect(getroute['login']);
+            if($this->statustoken){
                 return true;
             }
-
             return false;
      }
-
-     // public function Redirect($url, $permanent = false)
-     // {
-     //      header('Location: ' . $url, true, $permanent ? 301 : 302);
-     //
-     //      exit();
-     // }
 
 }
