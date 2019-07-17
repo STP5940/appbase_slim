@@ -13,7 +13,7 @@ define('cache', __DIR__ . '/../resources/cache');
 if (!function_exists('asset')) {
     function asset($File)
     {
-        return '/'.$File;
+        return '/'.$File.'?v='.date("YmdHis");
     }
 }
 

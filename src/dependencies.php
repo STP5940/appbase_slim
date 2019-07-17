@@ -36,7 +36,7 @@ return function (App $app) {
         $guard = new \Slim\Csrf\Guard();
         $guard->setFailureCallable(function ($request, $response, $next) {
             $request = $request->withAttribute("csrf_status", false);
-            die("<br >Appbase slime Check csrf Fail!");
+            die('Appbase slime Check csrf Fail!<br/><a href="login">Goto login</a><br/>');
             return $next($request, $response);
         });
         return $guard;
@@ -69,7 +69,7 @@ return function (App $app) {
             return $response->withStatus(405)
                 ->withHeader('Allow', implode(', ', $methods))
                 ->withHeader('Content-type', 'text/html')
-                ->write('Method must be one of: ' . implode(', ', $methods));
+                ->write('Method must be one of: ' . implode(', ', $methods).'<br/><a href="login">Goto login</a><br/>');
         };
     };
 
