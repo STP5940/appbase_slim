@@ -9,12 +9,16 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
+ini_set('session.save_path', __DIR__ . '/../resources/session');
 session_start();
 
 // dd for larapack debug
 require __DIR__ . '/../vendor/larapack/dd/src/helper.php';
 
 require __DIR__ . '/../vendor/autoload.php';
+
+// global function
+require __DIR__ . '/../src/globalfunc.php';
 
 // Instantiate the app
 $settings = require __DIR__ . '/../src/settings.php';

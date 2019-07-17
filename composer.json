@@ -24,7 +24,9 @@
         "eftec/bladeone": "3.24",
         "illuminate/database": "^5.3",
         "vlucas/phpdotenv": "3.3.3",
-        "slim/csrf": "0.8.3"
+        "slim/csrf": "0.8.3",
+        "tuupola/slim-jwt-auth": "3.4.0",
+        "bryanjhv/slim-session": "~3.0"
     },
     "require-dev": {
         "phpunit/phpunit": ">=5.0"

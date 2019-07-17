@@ -2,6 +2,7 @@
 namespace App\controllers;
 
 use App\Models\Users;
+use Firebase\JWT\JWT;
 use App\controllers\Controller;
 use Illuminate\Database\Capsule\Manager as DB;
 
@@ -13,67 +14,34 @@ class UsersController extends Controller
 
     public function Index($request, $response, $args)
     {
-      return $this->render($response, 'index.phtml', $args);
+      $session = $this->container['session'];
+      $Token = isset($session['Token']);
+      return view('Users.index');
+      exit();
     }
 
-    public function get_users($request, $response, $args)
-    {
-        $id   = $args['id'];
-        $use   =  Users::find($id);
-        $email =  $this->json($use['email']);
+    public function checklogin($request, $response, $args){
+      $username = get($request, 'username');
+      $password = get($request, 'password');
+      $datause  = DB::SELECT("SELECT * FROM USERS WHERE username=? ", [$username]);
 
-        $test = DB::table('Users')->where('id',$id)->get();
-        echo "<pre>";
-        print_r($test);
-        echo "</pre>";
+      if (count($datause) == 1 && validatehash($password, $datause[0]->password)) {
+          $settings = $this->container['settings']; // get settings array.
+          $token = JWT::encode(['username' => $username, 'password' => $password], $settings['jwt']['secret'], "HS256");
+          // dd($this->container['session']);
+          $session = $this->container['session'];
+          $session['Token']    = $token;
+          $session['id']       = $datause[0]->id;
+          $session['name']     = $datause[0]->name;
+          $session['username'] = $datause[0]->username;
+          $session['email']    = $datause[0]->email;
+          $session['level']    = $datause[0]->level;
+          return $response->withRedirect('/api/users');
+          exit();
+      }
 
-        $Counttest = $test->count();
-        $password = ($Counttest > 0 ? $test[0]->password : null);
-        echo $password;
-        echo "<br><br>";
-
-        $user  = DB::SELECT("SELECT * FROM USERS WHERE id=?", [$id]);
-        $args = $this->json($args);
-
-        $ArrayUse = ['data' => $args, 'db' => $user, 'email'=> $email];
-
-        return $this->view("Index.index", [ 'User' => $ArrayUse]);
-    }
-
-    public function csrf_crate($request, $response, $args)
-    {
-      // CSRF token name and value
-      $csrfName     = $request->getAttribute($this->csrfNameKey);
-      $csrfValue    = $request->getAttribute($this->csrfValueKey);
-
-      $data = [
-                  'csrf'   => [
-                      'keys' => [
-                          'name'  => $this->csrfNameKey,
-                          'value' => $this->csrfValueKey
-                      ],
-                      'name'  => $csrfName,
-                      'value' => $csrfValue
-                  ],
-                  'Hello' => 'Hello Word'
-              ];
-
-      return $this->render($response, 'users/index.phtml', $data);
-
-    }
-
-    public function csrf_validate($request, $response, $args)
-    {
-      // Generate new tokens
-      $csrfNameKey = $this->csrf->getTokenNameKey();
-      $csrfValueKey = $this->csrf->getTokenValueKey();
-      $keyPair = $this->csrf->generateToken();
-
-      // Validate retrieved tokens
-      $this->csrf->validateToken($csrfNameKey, $csrfValueKey);
-      echo "<br>Appbase Slim csrf token Ok";
-      dd($request->getParsedBody()['name']);
-
+      return $response->withJson(['error' => true, 'message' => 'These user or password do not match our records.']);
+      exit();
     }
 
 }
