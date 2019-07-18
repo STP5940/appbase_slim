@@ -27,6 +27,7 @@ class UsersController extends Controller
                    'name' => $session['name'],
                    'lastname' => $session['lastname'],
                    'username' => $session['username'],
+                   'img' => $session['img'],
                    'email' => $session['email']
                  ];
 
@@ -54,25 +55,26 @@ class UsersController extends Controller
 
       $datause = Users::checklogin($username);
 
-      if (count($datause) == 1 && $datause[0]->active && validatehash($password, $datause[0]->password)) {
+      if (!empty($datause) && $datause->active && validatehash($password, $datause->password)) {
 
           $settings = $this->container['settings']; // get settings array.
           $token = JWT::encode(['username' => $username, 'password' => $password], $settings['jwt']['secret'], "HS256");
           // dd($this->container['session']);
           $session = $this->container['session'];
           $session['Token']    = $token;
-          $session['id']       = $datause[0]->id;
-          $session['name']     = $datause[0]->name;
-          $session['lastname'] = $datause[0]->lastname;
-          $session['username'] = $datause[0]->username;
-          $session['email']    = $datause[0]->email;
-          $session['level']    = $datause[0]->level;
+          $session['id']       = $datause->id;
+          $session['name']     = $datause->name;
+          $session['lastname'] = $datause->lastname;
+          $session['username'] = $datause->username;
+          $session['email']    = $datause->email;
+          $session['img']      = $datause->img;
+          $session['level']    = $datause->level;
           return $response->withRedirect('/users/index');
           exit();
       }
 
       // บัญชีถูกปิดการใช้งาน
-      if(count($datause) == 1 && $datause[0]->active == 0){
+      if(!empty($datause) == 1 && $datause->active == 0){
         return $response->withJson(['error' => true, 'message' => 'Account not Active']);
         exit();
       }
