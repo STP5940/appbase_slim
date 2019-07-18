@@ -51,9 +51,11 @@ class UsersController extends Controller
     public function checklogin($request, $response, $args){
       $username = get($request, 'username');
       $password = get($request, 'password');
-      $datause  = DB::SELECT("SELECT * FROM USERS WHERE username=? OR email=? ", [$username, $username]);
 
-      if (count($datause) == 1 && validatehash($password, $datause[0]->password)) {
+      $datause = Users::checklogin($username);
+
+      if (count($datause) == 1 && $datause[0]->active && validatehash($password, $datause[0]->password)) {
+
           $settings = $this->container['settings']; // get settings array.
           $token = JWT::encode(['username' => $username, 'password' => $password], $settings['jwt']['secret'], "HS256");
           // dd($this->container['session']);
@@ -67,6 +69,12 @@ class UsersController extends Controller
           $session['level']    = $datause[0]->level;
           return $response->withRedirect('/users/index');
           exit();
+      }
+
+      // บัญชีถูกปิดการใช้งาน
+      if(count($datause) == 1 && $datause[0]->active == 0){
+        return $response->withJson(['error' => true, 'message' => 'Account not Active']);
+        exit();
       }
 
       return $response->withJson(['error' => true, 'message' => 'These user or password do not match our records.']);
