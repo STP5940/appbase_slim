@@ -14,19 +14,12 @@
   <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
+
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css') }}">
-  <!-- Morris chart -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/morris.js/morris.css') }}">
-  <!-- jvectormap -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/jvectormap/jquery-jvectormap.css') }}">
-  <!-- Date Picker -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
-  <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -208,17 +201,13 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="/users/profile" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/users/profile" class="btn btn-primary btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="/users/logout" class="btn btn-default btn-flat">Sign out</a>
+                  <button type="button" class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-logout">Sign out</button>
                 </div>
               </li>
             </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -263,8 +252,28 @@
             <li class="active"><a href="#1"><i class="fa fa-circle-o"></i> ขายสินค้า</a></li>
             <li><a href="#2"><i class="fa fa-circle-o"></i> เพิ่มสินค้า</a></li>
             <li><a href="#3"><i class="fa fa-circle-o"></i> เช็คสต็อค</a></li>
+            <li><a href="#3"><i class="fa fa-circle-o"></i> คืนสินค้า</a></li>
+            <li><a href="#3"><i class="fa fa-circle-o"></i> เพิ่มรายชื่อสมาชิก</a></li>
+            <li><a href="#3"><i class="fa fa-circle-o"></i> เพิ่มรายการค่าใช้จ่ายทั่วไป</a></li>
           </ul>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-cogs"></i>
+            <span>ตั้งค่า</span>
+            <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> แจ้งเตือนการเข้าสู่ระบบ</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> เปลี่ยนรหัสผ่าน</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> กำหนดสิทธิผู้ใช้</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> ข้อมูลร้านค้า</a></li>
+          </ul>
+        </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -294,12 +303,10 @@
       <!-- Small boxes (Stat box) -->
       <div class="row">
         <div class="col-lg-12 col-xs-12">
-
           <!-- Default box -->
-          <div class="box">
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Title</h3>
-
+              <h3 class="box-title">ขายสินค้า และบริการ</h3>
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="ย่อลง">
                   <i class="fa fa-minus"></i></button>
@@ -308,185 +315,80 @@
               </div>
             </div>
             <div class="box-body">
-              Start creating your amazing application!
+
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-header with-border">
+                  <h3 class="box-title">เพิ่มรายการสินค้า</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="get">
+                  <div class="box-body">
+                    <div class="input-group input-group">
+                      <input type="text" class="form-control" id="Barcode" name="Barcode" placeholder="Enter Barcode" autofocus>
+                          <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">เพิ่มรายการ!</button>
+                          </span>
+                    </div>
+                  </div>
+                  <!-- /.box-body -->
+                </form>
+            </div>
+
+            <div class="col-lg-6 col-xs-12">
+                <div class="box-header with-border">
+                  <h3 class="box-title">รายการขายปัจจุบัน</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                  <table id="saleslist" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                      <th>รหัสสินค้า</th>
+                      <th>ชื่อสินค้า</th>
+                      <th>ราคา/หน่วย</th>
+                      <th>จำนวนชิ้น</th>
+                      <th>ราคา</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>1112000001252</td>
+                      <td>น้ำยาล้างจาน</td>
+                      <td>20.00</td>
+                      <td>2</td>
+                      <td>40.00</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                      <th>รวมทั้งหมด</th>
+                      <th>40.00 บาท</th>
+                    </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-              Footer
+              <b>หมายเหตุ</b>
+              <p>
+                <li>ุ กรณีมีสินค้าซ้ำกัน 2 ชิ้นขึ้นไป จำนวนชิ้น*Barcode เช่น 3*1112000001252</li>
+              </p>
             </div>
             <!-- /.box-footer-->
           </div>
           <!-- /.box -->
-
         </div>
         <!-- ./col -->
       </div>
       <!-- /.row -->
-
-
-
-      <!-- Small boxes (Stat box) -->
-      {{-- <div class="row">
-
-    </div>
-    <!-- /.row --> --}}
-
-
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-
-      <section class="col-lg-7 col-xs-12 connectedSortable ui-sortable">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Hover Data Table</h3>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <table id="example2" class="table table-bordered table-hover">
-              <thead>
-              <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
-              </tr>
-              </thead>
-              <tbody>
-
-              <tr>
-                <td>Misc</td>
-                <td>IE Mobile</td>
-                <td>Windows Mobile 6</td>
-                <td>-</td>
-                <td>C</td>
-              </tr>
-              <tr>
-                <td>Misc</td>
-                <td>PSP browser</td>
-                <td>PSP</td>
-                <td>-</td>
-                <td>C</td>
-              </tr>
-              <tr>
-                <td>Other browsers</td>
-                <td>All others</td>
-                <td>-</td>
-                <td>-</td>
-                <td>U</td>
-              </tr>
-              </tbody>
-              <tfoot>
-              <tr>
-                <th>Rendering engine</th>
-                <th>Browser</th>
-                <th>Platform(s)</th>
-                <th>Engine version</th>
-                <th>CSS grade</th>
-              </tr>
-              </tfoot>
-            </table>
-          </div>
-          <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-      </section>
-
-
-      <section class="col-lg-5 connectedSortable ui-sortable">
-
-      <!-- Construct the box with style you want. Here we are using box-danger -->
-      <!-- Then add the class direct-chat and choose the direct-chat-* contexual class -->
-      <!-- The contextual class should match the box, so we are using direct-chat-danger -->
-      <div class="box box-danger direct-chat direct-chat-danger">
-        <div class="box-header with-border">
-          <h3 class="box-title">Direct Chat</h3>
-          <div class="box-tools pull-right">
-            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
-            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <!-- In box-tools add this button if you intend to use the contacts pane -->
-            <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
-            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body" style="height: 600px; background-color: rgba(0,0,0,0);">
-          <!-- Conversations are loaded here -->
-          <div class="direct-chat-messages">
-            <!-- Message. Default to the left -->
-            <div class="direct-chat-msg">
-              <div class="direct-chat-info clearfix">
-                <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-              </div>
-              <!-- /.direct-chat-info -->
-              <img class="direct-chat-img" src="http://localhost:8888/storage/avatar2.png?v=20190722221626" alt="message user image">
-              <!-- /.direct-chat-img -->
-              <div class="direct-chat-text">
-                Is this template really for free? That's unbelievable!
-              </div>
-              <!-- /.direct-chat-text -->
-            </div>
-            <!-- /.direct-chat-msg -->
-
-            <!-- Message to the right -->
-            <div class="direct-chat-msg right">
-              <div class="direct-chat-info clearfix">
-                <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-              </div>
-              <!-- /.direct-chat-info -->
-              <img class="direct-chat-img" src="http://localhost:8888/storage/o7dpbuop12.jpg?v=20190722221626" alt="message user image">
-              <!-- /.direct-chat-img -->
-              <div class="direct-chat-text">
-                You better believe it!
-              </div>
-              <!-- /.direct-chat-text -->
-            </div>
-            <!-- /.direct-chat-msg -->
-          </div>
-          <!--/.direct-chat-messages-->
-
-          <!-- Contacts are loaded here -->
-          <div class="direct-chat-contacts">
-            <ul class="contacts-list">
-              <li>
-                <a href="#">
-                  <img class="contacts-list-img" src="../dist/img/user1-128x128.jpg" alt="Contact Avatar">
-                  <div class="contacts-list-info">
-                    <span class="contacts-list-name">
-                      Count Dracula
-                      <small class="contacts-list-date pull-right">2/28/2015</small>
-                      </span>
-                    <span class="contacts-list-msg">How have you been? I was...</span>
-                  </div>
-                  <!-- /.contacts-list-info -->
-                </a>
-              </li>
-              <!-- End Contact Item -->
-            </ul>
-            <!-- /.contatcts-list -->
-          </div>
-          <!-- /.direct-chat-pane -->
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          <div class="input-group">
-            <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-            <span class="input-group-btn">
-                  <button type="button" class="btn btn-danger btn-flat">Send</button>
-            </span>
-          </div>
-        </div>
-        <!-- /.box-footer-->
-      </div>
-      <!--/.direct-chat -->
-      {{-- </div>
-      <!-- ./col --> --}}
-      </section>
-      </div>
-      <!-- /.row -->
-
 
 
     <!--  สิ้นสุดเนื้อหา -->
@@ -496,244 +398,71 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.13
+      <b>Version</b> 0.0.1
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 <a href="https://github.com/STP5940/appbase_slim">Appbase slim</a></strong> All rights
     reserved.
   </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark" style="display: none;">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-user bg-yellow"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-
-                <p>New phone +1(800)555-1234</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-
-                <p>nora@example.com</p>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <i class="menu-icon fa fa-file-code-o bg-green"></i>
-
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-
-                <p>Execution time 5 seconds</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Update Resume
-                <span class="label label-success pull-right">95%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Laravel Integration
-                <span class="label label-warning pull-right">50%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-              </div>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:void(0)">
-              <h4 class="control-sidebar-subheading">
-                Back End Framework
-                <span class="label label-primary pull-right">68%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Allow mail redirect
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Other sets of options are available
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Expose author name in posts
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Allow the user to show his name in blog posts
-            </p>
-          </div>
-          <!-- /.form-group -->
-
-          <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Show me as online
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Turn off notifications
-              <input type="checkbox" class="pull-right">
-            </label>
-          </div>
-          <!-- /.form-group -->
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Delete chat history
-              <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-            </label>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+<!-- modal logout confirm -->
+<div class="modal fade" id="modal-logout">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">แจ้งเตือน</h4>
+      </div>
+      <div class="modal-body">
+        <p>คุณต้องการออกจากระบบ&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+        <a href="/users/logout" type="button" class="btn btn-primary">ยืนยัน</a>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('AdminLTE/bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button);
-</script>
+<!-- jQuery 3 -->
+<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<!-- Morris.js charts -->
-<script src="{{ asset('AdminLTE/bower_components/raphael/raphael.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/bower_components/morris.js/morris.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('AdminLTE/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
-<!-- jvectormap -->
-<script src="{{ asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('AdminLTE/bower_components/jquery-knob/dist/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('AdminLTE/bower_components/moment/min/moment.min.js') }}"></script>
-<script src="{{ asset('AdminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-<!-- datepicker -->
-<script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="{{ asset('AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
-<!-- Slimscroll -->
+<!-- DataTables -->
+<script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<!-- SlimScroll -->
 <script src="{{ asset('AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('AdminLTE/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('AdminLTE/dist/js/demo.js') }}"></script>
+<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>\
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+
+<!-- page script -->
+<script>
+  $(function () {
+    $('#saleslist').DataTable({
+      'paging'      : false,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : false,
+      'autoWidth'   : false
+    })
+  })
+</script>
 </body>
 </html>
