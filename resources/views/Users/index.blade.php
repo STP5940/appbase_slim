@@ -323,6 +323,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" method="get">
+                  {{-- {!! csrf !!} --}}
                   <div class="box-body">
                     <div class="input-group input-group">
                       <input type="text" class="form-control" id="Barcode" name="Barcode" placeholder="Enter Barcode" autofocus>
@@ -330,6 +331,8 @@
                             <button type="submit" class="btn btn-primary">เพิ่มรายการ!</button>
                           </span>
                     </div>
+                    <br/>
+                    <p class="text-success">เพิ่มรายการ <?php echo $_GET["Barcode"]; ?> สำเร็จ</p>
                   </div>
                   <!-- /.box-body -->
                 </form>
@@ -346,18 +349,32 @@
                     <tr>
                       <th>รหัสสินค้า</th>
                       <th>ชื่อสินค้า</th>
-                      <th>ราคา/หน่วย</th>
-                      <th>จำนวนชิ้น</th>
-                      <th>ราคา</th>
+                      <th style="text-align:center;">ราคา/หน่วย</th>
+                      <th style="text-align:center;">จำนวนชิ้น</th>
+                      <th style="text-align:right;">ราคา</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                       <td>1112000001252</td>
                       <td>น้ำยาล้างจาน</td>
-                      <td>20.00</td>
-                      <td>2</td>
-                      <td>40.00</td>
+                      <td style="text-align:right;">20.00</td>
+                      <td style="text-align:center;">2</td>
+                      <td style="text-align:right;">40.00</td>
+                    </tr>
+                    <tr>
+                      <td>1112000001253</td>
+                      <td>น้ำยาล้างห้องน้ำ</td>
+                      <td style="text-align:right;">150.00</td>
+                      <td style="text-align:center;">1</td>
+                      <td style="text-align:right;">150.00</td>
+                    </tr>
+                    <tr>
+                      <td>1112000001254</td>
+                      <td>น้ำยาถูพื้น</td>
+                      <td style="text-align:right;">50.00</td>
+                      <td style="text-align:center;">1</td>
+                      <td style="text-align:right;">50.00</td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -366,7 +383,7 @@
                       <th></th>
                       <th></th>
                       <th>รวมทั้งหมด</th>
-                      <th>40.00 บาท</th>
+                      <th style="text-align:right;">40.00 บาท</th>
                     </tr>
                     </tfoot>
                   </table>
