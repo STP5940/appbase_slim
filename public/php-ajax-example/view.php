@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 
 <head>
 
@@ -70,6 +70,24 @@ function sendData()
 
 
     })
+
+    // $.ajax({
+    //     url:'person.php',
+    //     data:{
+    //       action: 'createPerson',
+    //       name: 'john',
+    //       age: 29
+    //     },
+    //     dataType:'json',
+    //     complete: function(res){
+    //         if(res.success){
+    //             alert('User Saved');
+    //         }else{
+    //             alert('Error: '+ res.error);
+    //         }
+    //     }
+    // });
+    //https://github.com/serkanyersen/AjaxHandler
 
 
 
