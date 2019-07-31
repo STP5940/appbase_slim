@@ -19,6 +19,8 @@ return function (App $app) {
       echo "<a href='404'>Error404 page</a><br/>";
     });
 
+    $app->get('/qr-code', \App\Controllers\QrcodeController::class . ':Index');
+
    /**
     * Users Group UsersController
     */
