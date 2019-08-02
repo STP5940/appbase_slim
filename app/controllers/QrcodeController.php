@@ -18,7 +18,7 @@ class QrcodeController extends Controller
     {
 
       // Create a basic QR code
-      $srting = 'Address: 1819co6RdjpRr58nQAbLjQTYjUEzNfWqC1';
+      $srting = '492PkSH2KUVYKzupwdjoR8gPzqW1d8xtcZ9fVyzptNSWJWf9UC3Wkkf9CyuEhpeAh57xq8H8YtJ721qYm1Kd3ow27bM7XF3';
       $qrCode = new QrCode($srting);
       $qrCode->setSize(300);
 
@@ -29,8 +29,8 @@ class QrcodeController extends Controller
       $qrCode->setErrorCorrectionLevel(new ErrorCorrectionLevel(ErrorCorrectionLevel::HIGH));
       $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
       $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
-      $qrCode->setLabel($srting, 9, __DIR__.'/../../vendor/endroid/qr-code/assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
-      $qrCode->setLogoPath(__DIR__.'/../../public/storage/qr-code/logo/Bitcoin-icon.png');
+      // $qrCode->setLabel("Monero wallet (Publickey)", 16, __DIR__.'/../../vendor/endroid/qr-code/assets/fonts/noto_sans.otf', LabelAlignment::CENTER);
+      // $qrCode->setLogoPath(__DIR__.'/../../public/storage/qr-code/logo/Monero2-icon.png');
       $qrCode->setLogoSize(100, 100);
       $qrCode->setRoundBlockSize(true);
       $qrCode->setValidateResult(false);

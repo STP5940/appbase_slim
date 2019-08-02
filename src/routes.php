@@ -20,6 +20,7 @@ return function (App $app) {
     });
 
     $app->get('/qr-code', \App\Controllers\QrcodeController::class . ':Index');
+    $app->get('/libra', \App\Controllers\LibraController::class . ':Index');
 
    /**
     * Users Group UsersController

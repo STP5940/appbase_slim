@@ -27,7 +27,7 @@
         "slim/csrf": "0.8.3",
         "tuupola/slim-jwt-auth": "3.4.0",
         "bryanjhv/slim-session": "~3.0",
-        "endroid/qr-code": "3.6.1",
+        "endroid/qr-code": "3.6.1"
     },
     "require-dev": {
         "phpunit/phpunit": ">=5.0"
